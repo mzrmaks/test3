@@ -16,8 +16,14 @@ function isPalindrome($str) {
     $resStr = strrev_enc_my($str);
     var_dump($resStr);
     if($resStr == $str){
-        return $resStr;
+         echo 'Palindrome: '.$resStr;
     } else {
+        $length = length($str);
+        for($i=0; $i<=$length-1; i++) {
+            for($j=$length-1; $j>0; $j-- ) {
+                isPalindrome(substr($str, $j));
+            }
+        }
         if(isPalindrome($str)) {
             echo "subpolindrome";
         } else {
