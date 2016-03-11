@@ -1,7 +1,8 @@
 <?php
 
-
-function strrev_enc_my($str){
+/* Function for correct string reverse */
+function strrev_enc_my($str)
+{
     $str = mb_strtolower($str);
     $str = str_replace(' ', '', $str);
     $str = iconv('utf-8', 'windows-1251', $str);
@@ -10,27 +11,46 @@ function strrev_enc_my($str){
     return $str;
 }
 
-function isPalindrome($str) {
-   // var_dump($str);
+function palindrome($str)
+{
+    $str = mb_strtolower($str);
+    $str = str_replace(' ', '', $str);
+    $isPalindrome = false;
+    $isSubpalindrome = false;
 
     $resStr = strrev_enc_my($str);
-    var_dump($resStr);
-    if($resStr == $str){
+
+    /* if string Palindrome */
+    if($resStr == $str)
+    {
+         $isPalindrome = true;
          echo 'Palindrome: '.$resStr;
-    } else {
-        $length = length($str);
-        for($i=0; $i<=$length-1; i++) {
-            for($j=$length-1; $j>0; $j-- ) {
-                isPalindrome(substr($str, $j));
+    }
+    else    // search subpalindrome
+    {
+        $length = strlen($str);
+        for($i=0; $i<=$length-1; $i++)
+        {
+            for($j=$length; $j>1; $j-- )
+            {
+                $sub = mb_substr($str, $i, $j);
+                $resStr = strrev_enc_my($sub);
+                if($resStr == $sub)
+                {
+                    echo 'Subpolindrome: '.$resStr;
+                    $isSubpalindrome = true;
+                    return;
+                }
             }
         }
-        if(isPalindrome($str)) {
-            echo "subpolindrome";
-        } else {
-            return "No polindrome";
-        }
+    }
+    /*if not find palindrome or subpalidrome*/
+    if(!($isPalindrome || $isSubpalindrome))
+    {
+        echo mb_substr($str, 0, 1);
+        return;
     }
 }
 
 $str = "Аргентина манит негра";
-isPalindrome($str);
+palindrome($str);
