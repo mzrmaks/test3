@@ -31,9 +31,11 @@ function palindrome($str)
         $length = strlen($str);
         for($i=0; $i<=$length-1; $i++)
         {
+
             for($j=$length; $j>1; $j-- )
             {
                 $sub = mb_substr($str, $i, $j);
+                if(strlen($sub) <= 1) break;
                 $resStr = strrev_enc_my($sub);
                 if($resStr == $sub)
                 {
@@ -52,5 +54,6 @@ function palindrome($str)
     }
 }
 
-$str = "Аргентина манит негра";
+$str = "Аргентина манит негр";
+//$str = "abbd";
 palindrome($str);
